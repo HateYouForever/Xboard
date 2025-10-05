@@ -157,9 +157,10 @@ class PlanService
             throw new ApiException(__('This subscription cannot be renewed, please change to another subscription'));
         }
 
-        if (!$this->plan->show && $this->plan->renew && !app(UserService::class)->isAvailable($user)) {
-            throw new ApiException(__('This subscription has expired, please change to another subscription'));
-        }
+        // Allow expired users to renew their current plan even if 'show' is false
+        // if (!$this->plan->show && $this->plan->renew && !app(UserService::class)->isAvailable($user)) {
+        //     throw new ApiException(__('This subscription has expired, please change to another subscription'));
+        // }
     }
 
     public function hasCapacity(Plan $plan): bool
