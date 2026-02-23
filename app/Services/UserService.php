@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Jobs\StatServerJob;
 use App\Jobs\StatUserJob;
+use App\Jobs\StatUserServerMonthJob;
 use App\Jobs\TrafficFetchJob;
 use App\Models\Order;
 use App\Models\Plan;
@@ -128,6 +129,7 @@ class UserService
             TrafficFetchJob::dispatch($server, $chunk->toArray(), $protocol, $timestamp);
             StatUserJob::dispatch($server, $chunk->toArray(), $protocol, 'd');
             StatServerJob::dispatch($server, $chunk->toArray(), $protocol, 'd');
+            StatUserServerMonthJob::dispatch($server, $chunk->toArray(), $protocol);
         });
     }
 
